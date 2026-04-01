@@ -35,7 +35,7 @@ The goal is to generate a clean customer analytics dataset for business insights
 ## How to Run
 
 ```bash
-python etl_pipeline.py
+python etl_pipeline2.py
 ```
 
 ## Output
@@ -58,6 +58,58 @@ The pipeline generates a customer-level analytics dataset saved as:
 This dataset provides a clean summary of customer behavior and spending.
 
 ---
+
+## Advanced Features
+
+### Incremental Processing (Tier 2) :
+
+The pipeline only processes new data since the last run using metadata tracking.
+
+- Reads the last run timestamp from etl_metadata
+- Extracts only new orders
+- Prevents reprocessing of old data and improves performance
+
+---
+
+## Config-Driven Transformations (Tier 3)
+
+The transformation logic is controlled using config.json.
+
+You can define:
+
+- Filters (e.g., remove cancelled orders)
+- Grouping columns
+- Aggregations (sum, count, nunique, etc.)
+
+This allows changing pipeline behavior without modifying code.
+
+---
+
+## Data Quality Report (Tier 1)
+
+The pipeline generates a quality report:
+
+output/quality_report.json
+
+It includes:
+
+- Timestamp
+- Total number of records
+- Validation results
+- Detected outliers
+
+---
+
+## Metadata Tracking (Tier 2)
+
+Each run is logged in the database table etl_metadata:
+
+- start_time
+- end_time
+- rows_processed
+- status (success / failed)
+
+This enables pipeline monitoring and auditing.
 
 ## Quality Checks
 
