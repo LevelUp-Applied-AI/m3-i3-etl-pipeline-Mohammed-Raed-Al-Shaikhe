@@ -1,0 +1,19 @@
+{
+   "filters": [
+    {
+        "column": "status",
+        "operator": "!=",
+        "value": "cancelled"
+    },
+    {
+        "column": "quantity",
+        "operator": "<=",
+        "value": 100
+    }
+  ],
+  "groupby": ["customer_id", "customer_name"],
+  "aggregations": {
+    "total_orders": ["order_id", "nunique"],
+    "total_revenue": ["line_total", "sum"]
+  }
+}
